@@ -1,3 +1,4 @@
+// 리터럴(literal)
 package step01;
 public class Exam04 { 
     public static void main(String[] args) {
