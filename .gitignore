@@ -1,1 +1,16 @@
+<<<<<<< HEAD
+*.project
+*.classpath
 *.class
+*.log
+**/.gradle/
+**/.settings/
+**/bin
+**/build
+**/temp/
+**/.vscode
+
+!build.gradle
+=======
+*.class
+>>>>>>> branch 'master' of https://github.com/hyeonju-oh/bitcamp.git
