@@ -11,18 +11,6 @@ public class BoardController {
     static Board[] boards = new Board[1000];
     static int boardIndex = 0;  
     
-    static int boardCount = 0; 
-    
-    static int getBoardIndext(String title) {        
-        for (int i = 0; i < boardIndex; i++) {
-            if (boards[i] == null) continue;
-            if (title.equals(boards[i].title.toLowerCase())) {
-            //if (Integer.parseInt(title) == i) {
-                return i;
-            }
-        }
-        return -1;
-    }
     
     public static void service(String menu, String option) {
         if (menu.equals("board/add")){
@@ -39,6 +27,18 @@ public class BoardController {
             System.out.println("명령어가 올바르지 않습니다.");
         }
     }
+    
+    static int getBoardIndex(String number) {        
+        for (int i = 0; i < boardIndex; i++) {
+            if (boards[i] == null) continue;
+            if (boards[i].number == Integer.parseInt(number)) {            
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    
 
     static void onBoardAdd() {
         Board board = new Board();
@@ -49,6 +49,7 @@ public class BoardController {
         board.contents = keyScan.nextLine();
         System.out.print("등록일? ");
         board.date = keyScan.nextLine();
+        board.number = boardIndex;
         boards[boardIndex++] = board; 
     }
 
@@ -57,18 +58,18 @@ public class BoardController {
         for (int i = 0; i < boardIndex; i++) {
             if (boards[i] == null) continue;
             System.out.printf("%d, %s, %s\n", 
-                i, boards[i].title, boards[i].date);
+                boards[i].number, boards[i].title, boards[i].date);
         }
     }
 
-    static void onBoardView(String title) {
+    static void onBoardView(String number) {
         System.out.println("[게시글 조회]");
-        if (title == null) {
+        if (number == null) {
             System.out.println("제목을 입력하세요");
             return;
         }
         
-        int i = getBoardIndext(title);
+        int i = getBoardIndex(number);
        
         if (i == -1) {
             System.out.println("해당 제목의 게시글이 없습니다.");
@@ -79,14 +80,14 @@ public class BoardController {
             System.out.printf("등록일: %s\n", board.date);
         }
     }
-    static void onBoardUpdate(String title) {
+    static void onBoardUpdate(String number) {
         System.out.println("[게시글 변경]");
-        if (title == null) {
+        if (number == null) {
             System.out.println("제목을 입력하세요");
             return;
         }
         
-        int i = getBoardIndext(title);
+        int i = getBoardIndex(number);
         
         if (i == -1) {
             System.out.println("해당 제목의 게시글이 없습니다.");
@@ -99,17 +100,18 @@ public class BoardController {
             updateBoard.contents = keyScan.nextLine();
             System.out.printf("등록일(%s) ", board.date);
             updateBoard.date = keyScan.nextLine();
+            updateBoard.number = i;
             boards[i] = updateBoard;
         }
     }
-    static void onBoardDelete(String title) {
+    static void onBoardDelete(String number) {
         System.out.println("[게시글 삭제]");
-        if (title == null) {
+        if (number == null) {
             System.out.println("제목을 입력하세요");
             return;
         }
         
-        int i = getBoardIndext(title);
+        int i = getBoardIndex(number);
         
        
         if (i == -1) {
