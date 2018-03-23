@@ -3,8 +3,8 @@ package step10;
 public class Exam02_3 {
     public static void main(String[] args) {
         
-        Integer obj1 = new Integer(100);
-        Integer obj2 = new Integer(100);
+        Integer obj1 = new Integer(100); // Heap에 인스턴스 생성 
+        Integer obj2 = new Integer(100); // Heap에 인스턴스 생성 
         
         if (obj1 == obj2) // 인스턴스의 주소 비교
             System.out.println("obj1 == obj2");
@@ -12,7 +12,7 @@ public class Exam02_3 {
             System.out.println("obj1 != obj2");
         
         Integer obj3 = 100; //constant pool에 생성
-        Integer obj4 = 100;
+        Integer obj4 = 100; //constant pool에 생성된 기존 주소 리턴
        
         if (obj3 == obj4) // 인스턴스의 주소가 같다
             System.out.println("obj3 == obj4");

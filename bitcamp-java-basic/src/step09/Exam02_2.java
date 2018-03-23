@@ -6,6 +6,7 @@ public class Exam02_2 {
         Integer i2 = new Integer(200);
         Integer i3 = new Integer(300);
         
+        // 인스턴스 메서드 사용
         System.out.println(i2.compareTo(i1));
         System.out.println(i1.compareTo(i3));
         
@@ -19,8 +20,8 @@ public class Exam02_2 {
         String s3 = Integer.toHexString(77);
         System.out.printf("77: %s, %s, %s\n", s1, s2, s3);
         
-        Integer x1 = Integer.valueOf("44");
-        Integer x2 = Integer.valueOf("44", 16);
+        Integer x1 = Integer.valueOf("44"); // 문자열에 있는 수를 10진수로 간주한다.
+        Integer x2 = Integer.valueOf("44", 16); // 16진수라고 지정한다.
         System.out.printf("%d, %d\n", x1, x2);
         
         float f = Float.parseFloat("3.14f");

@@ -19,10 +19,9 @@ public class BoardDao {
     }
     
     public Board get(int i) {
-        if(i < 0 || i >= boardIndex)
+        if (i < 0 || i >= boardIndex)
             return null;
-        else
-            return boards[i];
+        return boards[i];
     }
     
     public void update(Board board) {
@@ -33,3 +32,10 @@ public class BoardDao {
         boards[i] = null;
     }
 }
+
+// ver 14 - BoardController로부터 데이터 관리 기능을 분리하여 BoardDao 생성.
+
+
+
+
+

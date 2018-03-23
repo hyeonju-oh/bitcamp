@@ -1,10 +1,9 @@
 
 import java.util.Random;
-import java.util.Scanner;
 
 public class Random01 {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         // TODO Auto-generated method stub
         Random random = new Random();
         String[] name = {"강동현", "경명수", "김가람", "김관희", "김기남", "김범수", 
@@ -14,14 +13,26 @@ public class Random01 {
             "홍정호", "황재천"};
         boolean[] check = new boolean[30];
         int count = 0;
+        
+        
     
+        for (int i = 0; i < 10; i++) {
+            System.out.print(".");
+            Thread.currentThread().sleep(1000);
+            
+        }
+        
+        System.out.println();
         while (true) {
             int randNumber = random.nextInt(30);
             if (randNumber > 0 && check[randNumber] == false) {
                 check[randNumber] = true;
+                
+                
                 System.out.println(name[count++] + " : " + randNumber);
                 
             }
+            
             if (count == 29) {
                 System.out.println("*************추첨종료*************");
                 break;

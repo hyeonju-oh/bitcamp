@@ -8,13 +8,13 @@ import bitcamp.java106.pms.domain.Member;
 import bitcamp.java106.pms.util.Console;
 
 public class MemberController {
-    // 이 클래스를 사용하려면 keyboard 스캐너가 있어야 한다.
-    // 이 클래스를 사용하기 전에 스캐너를 설정하라!
     Scanner keyScan;
-    MemberDao memberDao = new MemberDao();
+
+    MemberDao memberDao;
     
-    public MemberController(Scanner scanner) {
-        this.keyScan = scanner;        
+    public MemberController(Scanner scanner, MemberDao memberDao) {
+        this.keyScan = scanner;
+        this.memberDao = memberDao;
     }
 
     public void service(String menu, String option) {
@@ -55,7 +55,7 @@ public class MemberController {
         for (int i = 0; i < list.length; i++) {
             if (list[i] == null) continue;
             System.out.printf("%s, %s, %s\n", 
-                list[i].id, list[i].email, list[i].password);
+                    list[i].id, list[i].email, list[i].password);
         }
     }
 
@@ -122,3 +122,5 @@ public class MemberController {
     }
     
 }
+
+//ver 14 - MemberDao를 사용하여 회원 데이터를 관리한다.

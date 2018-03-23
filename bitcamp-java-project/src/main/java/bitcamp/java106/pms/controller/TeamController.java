@@ -12,12 +12,17 @@ public class TeamController {
     // 이 클래스를 사용하기 전에 App 클래스에서 준비한 Scanner 객체를
     // keyScan 변수에 저장하라!
     Scanner keyScan;
+
+    TeamDao teamDao;
     
-    public TeamController(Scanner scanner) {
+
+    
+    public TeamController(Scanner scanner, TeamDao teamDao) {
         this.keyScan = scanner;
+        this.teamDao = teamDao;
     }
-    TeamDao teamDao = new TeamDao();
     
+
     public void service(String menu, String option) {
         if (menu.equals("team/add")) {
             this.onTeamAdd();
@@ -55,7 +60,6 @@ public class TeamController {
         System.out.print("종료일? ");
         team.endDate = Date.valueOf(this.keyScan.nextLine());
 
-        // 팀 정보가 담겨있는 객체의 주소를 배열에 보관한다.
         teamDao.insert(team);
     }
 
@@ -65,8 +69,8 @@ public class TeamController {
         for (int i = 0; i < list.length; i++) {
             if (list[i] == null) continue;
             System.out.printf("%s, %d, %s ~ %s\n", 
-                list[i].name, list[i].maxQty, 
-                list[i].startDate, list[i].endDate);
+                    list[i].name, list[i].maxQty, 
+                    list[i].startDate, list[i].endDate);
         }
     }
 
@@ -104,7 +108,7 @@ public class TeamController {
             System.out.println("해당 이름의 팀이 없습니다.");
         } else {
             Team updateTeam = new Team();
-            System.out.printf("팀명: %s\n", team.name);
+            System.out.printf("팀명 : %s\n", team.name);
             updateTeam.name = team.name;
             System.out.printf("설명(%s)? ", team.description);
             updateTeam.description = this.keyScan.nextLine();
@@ -115,6 +119,7 @@ public class TeamController {
             updateTeam.startDate = Date.valueOf(this.keyScan.nextLine());
             System.out.printf("종료일(%s)? ", team.endDate);
             updateTeam.endDate = Date.valueOf(this.keyScan.nextLine());
+            
             teamDao.update(updateTeam);
             System.out.println("변경하였습니다.");
         }
@@ -140,3 +145,6 @@ public class TeamController {
     }
     
 }
+
+//ver 14 - TeamDao를 사용하여 팀 데이터를 관리한다.
+// ver 13 - 시작일, 종료일을 문자열로 입력 받아 Date 객체로 변환하여 저장.

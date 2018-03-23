@@ -1,11 +1,13 @@
 package step09;
-
+//생성자 활용 예 - java.util.Date 클래스의 생성자
 import java.util.Date;
 
-// 생성자 활용 예 - java.util.Date
 public class Exam01_2 {
     public static void main(String[] args) throws Exception {
         // java.util.Date 클래스는 날짜 데이터를 다루는 클래스이다.
+        // => 이 클래스에는 날짜 데이터를 다룰 수 있는 다양한 메서드가 들어 있다.
+        
+        // Date() 기본 생성자는 메모리를 오늘 날짜 값으로 초기화시킨다.
         Date d1 = new Date();
         System.out.println(d1);
         
