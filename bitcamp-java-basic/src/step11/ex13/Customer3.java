@@ -7,7 +7,12 @@ public class Customer3 {
     private int weight;
     private int height;
     
+    // 외부에서 인스턴스 변수에 접근을 못하기 때문에 값을 넣거나 조회할 수 없다.
+    // 그래서 이를 가능하게 하는 수단/방법(method)을 제공해야 한다.
+    // => 보통 메서드 명은 set으로 시작한다.
+    // => 그래서 이 메서드를 "셋터(setter)"라고 부른다.
     public void setName(String name) {
+        // 이 메서드에서 이름 값이 유효한지 검사한다.
         if (name == null) {
             this.name = "이름 없음";
             return;
@@ -44,6 +49,8 @@ public class Customer3 {
         this.weight = weight;
     }
     
+    // 인스턴스 변수 height의 값을 넣는 메서드
+    // => 키의 유효 범위는 1 ~ 300 이다.
     public void setHeight(int height) {
         if (height < 1 || height > 300) {
             this.height = 0;

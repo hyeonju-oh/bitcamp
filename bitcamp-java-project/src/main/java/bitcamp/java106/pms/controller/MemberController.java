@@ -38,13 +38,13 @@ public class MemberController {
         Member member = new Member();
         
         System.out.print("아이디? ");
-        member.id = this.keyScan.nextLine();
+        member.setId(this.keyScan.nextLine());
 
         System.out.print("이메일? ");
-        member.email = this.keyScan.nextLine();
+        member.setEmail(this.keyScan.nextLine());
 
         System.out.print("암호? ");
-        member.password = this.keyScan.nextLine();
+        member.setPassword(this.keyScan.nextLine());
 
         memberDao.insert(member);
     }
@@ -53,9 +53,8 @@ public class MemberController {
         System.out.println("[회원 목록]");
         Member[] list = memberDao.list();
         for (int i = 0; i < list.length; i++) {
-            if (list[i] == null) continue;
             System.out.printf("%s, %s, %s\n", 
-                    list[i].id, list[i].email, list[i].password);
+                    list[i].getId(), list[i].getEmail(), list[i].getPassword());
         }
     }
 
@@ -71,9 +70,9 @@ public class MemberController {
         if (member == null) {
             System.out.println("해당 아이디의 회원이 없습니다.");
         } else {
-            System.out.printf("아이디: %s\n", member.id);
-            System.out.printf("이메일: %s\n", member.email);
-            System.out.printf("암호: %s\n", member.password);
+            System.out.printf("아이디: %s\n", member.getId());
+            System.out.printf("이메일: %s\n", member.getEmail());
+            System.out.printf("암호: %s\n", member.getPassword());
         }
     }
 
@@ -90,12 +89,12 @@ public class MemberController {
             System.out.println("해당 아이디의 회원이 없습니다.");
         } else {
             Member updateMember = new Member();
-            System.out.printf("아이디: %s\n", member.id);
-            updateMember.id = member.id;
-            System.out.printf("이메일(%s)? ", member.email);
-            updateMember.email = this.keyScan.nextLine();
+            System.out.printf("아이디: %s\n", member.getId());
+            updateMember.setId(member.getId());
+            System.out.printf("이메일(%s)? ", member.getEmail());
+            updateMember.setEmail(this.keyScan.nextLine());
             System.out.printf("암호? ");
-            updateMember.password = this.keyScan.nextLine();
+            updateMember.setPassword(this.keyScan.nextLine());
             
             memberDao.update(updateMember);
             System.out.println("변경하였습니다.");
