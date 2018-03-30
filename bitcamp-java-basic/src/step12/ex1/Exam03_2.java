@@ -1,5 +1,6 @@
+// java.util.ArrayList의 indexOf()의 사용
 package step12.ex1;
-// indexOf()의 사용
+
 import java.util.ArrayList;
 
 public class Exam03_2 {
@@ -8,7 +9,7 @@ public class Exam03_2 {
         String s2 = new String("bbb");
         String s3 = new String("ccc");
         String s4 = new String("bbb"); // s2 != s4
-        
+
         ArrayList list = new ArrayList();
         list.add(s1);
         list.add(s2);
@@ -17,11 +18,11 @@ public class Exam03_2 {
         
         System.out.println(list.indexOf(s4));
     }
-
+    
     static void print(ArrayList list) {
         for (int i = 0; i < list.size(); i++) {
             System.out.print(list.get(i) + ", ");
         }
         System.out.println();
     }
-}
+}   
