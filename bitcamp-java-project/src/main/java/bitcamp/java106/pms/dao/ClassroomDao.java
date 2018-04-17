@@ -20,10 +20,11 @@ public class ClassroomDao extends AbstractDao<Classroom> {
     
     public void load() throws Exception {
         try (
-            ObjectInputStream in = new ObjectInputStream(
-                                    new BufferedInputStream(
-                                    new FileInputStream("data/classroom.data")));
+                ObjectInputStream in = new ObjectInputStream(
+                               new BufferedInputStream(
+                               new FileInputStream("data/classroom.data")));
             ) {
+        
             while (true) {
                 try {
                     this.insert((Classroom) in.readObject());
@@ -37,16 +38,16 @@ public class ClassroomDao extends AbstractDao<Classroom> {
     
     public void save() throws Exception {
         try (
-            ObjectOutputStream out = new ObjectOutputStream(
-                                    new BufferedOutputStream(
-                                    new FileOutputStream("data/classroom.data")));
+                ObjectOutputStream out = new ObjectOutputStream(
+                                new BufferedOutputStream(
+                                new FileOutputStream("data/classroom.data")));
             ) {
             Iterator<Classroom> classrooms = this.list();
-        
+            
             while (classrooms.hasNext()) {
                 out.writeObject(classrooms.next());
             }
-        }
+        } 
     }
     
     public int indexOf(Object key) {

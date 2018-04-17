@@ -20,10 +20,11 @@ public class TeamDao extends AbstractDao<Team> {
     
     public void load() throws Exception {
         try (
-            ObjectInputStream in = new ObjectInputStream(
-                                    new BufferedInputStream(
-                                    new FileInputStream("data/team.data")));
+                ObjectInputStream in = new ObjectInputStream(
+                               new BufferedInputStream(
+                               new FileInputStream("data/team.data")));
             ) {
+        
             while (true) {
                 try {
                     this.insert((Team) in.readObject());
@@ -37,16 +38,16 @@ public class TeamDao extends AbstractDao<Team> {
     
     public void save() throws Exception {
         try (
-            ObjectOutputStream out = new ObjectOutputStream(
-                                    new BufferedOutputStream(
-                                    new FileOutputStream("data/team.data")));
+                ObjectOutputStream out = new ObjectOutputStream(
+                                new BufferedOutputStream(
+                                new FileOutputStream("data/team.data")));
             ) {
             Iterator<Team> teams = this.list();
-        
+            
             while (teams.hasNext()) {
                 out.writeObject(teams.next());
             }
-        }
+        } 
     }
         
     public int indexOf(Object key) {

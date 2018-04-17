@@ -62,4 +62,5 @@ public class Classroom implements Serializable {
     
 }
 
+//ver 27 - java.io.Serializable 인터페이스 구현
 //ver 24 - setNo() 변경 

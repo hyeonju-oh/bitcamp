@@ -5,6 +5,7 @@ import java.sql.Date;
 
 public class Task implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     public static final int READY = 0;
     public static final int WORKING = 1;
     public static final int COMPLETE = 9;
@@ -86,6 +87,7 @@ public class Task implements Serializable {
     }
 }
 
+//ver 27 - java.io.Serializable 인터페이스 구현
 //ver 24 - setNo() 변경
 //ver 17 - 사용자 정의 데이터 타입 생성
 

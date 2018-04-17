@@ -19,10 +19,11 @@ public class MemberDao extends AbstractDao<Member> {
     
     public void load() throws Exception {
         try (
-            ObjectInputStream in = new ObjectInputStream(
-                                    new BufferedInputStream(
-                                    new FileInputStream("data/member.data")));
+                ObjectInputStream in = new ObjectInputStream(
+                               new BufferedInputStream(
+                               new FileInputStream("data/member.data")));
             ) {
+        
             while (true) {
                 try {
                     this.insert((Member) in.readObject());
@@ -36,16 +37,16 @@ public class MemberDao extends AbstractDao<Member> {
     
     public void save() throws Exception {
         try (
-            ObjectOutputStream out = new ObjectOutputStream(
-                                    new BufferedOutputStream(
-                                    new FileOutputStream("data/member.data")));
+                ObjectOutputStream out = new ObjectOutputStream(
+                                new BufferedOutputStream(
+                                new FileOutputStream("data/member.data")));
             ) {
             Iterator<Member> members = this.list();
-        
+            
             while (members.hasNext()) {
                 out.writeObject(members.next());
             }
-        }
+        } 
     }
         
     public int indexOf(Object key) {

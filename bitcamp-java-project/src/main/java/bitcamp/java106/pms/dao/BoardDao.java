@@ -20,10 +20,11 @@ public class BoardDao extends AbstractDao<Board> {
     
     public void load() throws Exception {
         try (
-            ObjectInputStream in = new ObjectInputStream(
-                                    new BufferedInputStream(
-                                    new FileInputStream("data/board.data")));
+                ObjectInputStream in = new ObjectInputStream(
+                               new BufferedInputStream(
+                               new FileInputStream("data/board.data")));
             ) {
+        
             while (true) {
                 try {
                     this.insert((Board) in.readObject());
@@ -32,17 +33,17 @@ public class BoardDao extends AbstractDao<Board> {
                     break; // 반복문을 나간다.
                 }
             }
-        } 
+        }
     }
     
     public void save() throws Exception {
         try (
-            ObjectOutputStream out = new ObjectOutputStream(
-                                    new BufferedOutputStream(
-                                    new FileOutputStream("data/board.data")));
+                ObjectOutputStream out = new ObjectOutputStream(
+                                new BufferedOutputStream(
+                                new FileOutputStream("data/board.data")));
             ) {
             Iterator<Board> boards = this.list();
-        
+            
             while (boards.hasNext()) {
                 out.writeObject(boards.next());
             }

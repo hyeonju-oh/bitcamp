@@ -21,10 +21,11 @@ public class TaskDao extends AbstractDao<Task> {
     
     public void load() throws Exception {
         try (
-            ObjectInputStream in = new ObjectInputStream(
-                                    new BufferedInputStream(
-                                    new FileInputStream("data/task.data")));
+                ObjectInputStream in = new ObjectInputStream(
+                               new BufferedInputStream(
+                               new FileInputStream("data/task.data")));
             ) {
+        
             while (true) {
                 try {
                     this.insert((Task) in.readObject());
@@ -38,16 +39,16 @@ public class TaskDao extends AbstractDao<Task> {
     
     public void save() throws Exception {
         try (
-            ObjectOutputStream out = new ObjectOutputStream(
-                                    new BufferedOutputStream(
-                                    new FileOutputStream("data/task.data")));
+                ObjectOutputStream out = new ObjectOutputStream(
+                                new BufferedOutputStream(
+                                new FileOutputStream("data/task.data")));
             ) {
             Iterator<Task> tasks = this.list();
-        
+            
             while (tasks.hasNext()) {
                 out.writeObject(tasks.next());
             }
-        }
+        } 
     }
         
     // 기존의 list() 메서드로는 작업을 처리할 수 없기 때문에 
