@@ -1,16 +1,13 @@
 package bitcamp.java106.pms.domain;
 
-import java.io.Serializable;
 import java.sql.Date;
 
-public class Task implements Serializable {
-    private static final long serialVersionUID = 1L;
-    
+public class Task {
     public static final int READY = 0;
     public static final int WORKING = 1;
     public static final int COMPLETE = 9;
     
-    public static int count = 1;
+    private static int count = 1;
 
     private int no;
     private String title;
@@ -37,10 +34,6 @@ public class Task implements Serializable {
         return no;
     }
     public void setNo(int no) {
-        // 외부에서 입력 받은 번호가 count 보다 클 때는 count의 값을 증가시켜야 한다.
-        if (no >= count) {
-            count = no + 1;
-        }
         this.no = no;
     }
     public int getState() {
@@ -87,8 +80,6 @@ public class Task implements Serializable {
     }
 }
 
-//ver 27 - java.io.Serializable 인터페이스 구현
-//ver 24 - setNo() 변경
 //ver 17 - 사용자 정의 데이터 타입 생성
 
 
