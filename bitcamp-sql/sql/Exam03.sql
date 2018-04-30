@@ -1,19 +1,41 @@
 # DQL(Data Query Language)
 데이터를 조회할 때 사용하는 문법
 
+## 테스트 용 테이블 및 데이터 준비
+```
+create table test1 (
+  no int primary key auto_increment,
+  name varchar(20) not null,
+  class varchar(10) not null,
+  working char(1) not null,
+  tel varchar(20)
+);
+
+insert into test1(name,class,working) values('aaa','java100','Y');
+insert into test1(name,class,working) values('bbb','java100','N');
+insert into test1(name,class,working) values('ccc','java100','Y');
+insert into test1(name,class,working) values('ddd','java100','N');
+insert into test1(name,class,working) values('eee','java100','Y');
+insert into test1(name,class,working) values('kkk','java101','N');
+insert into test1(name,class,working) values('lll','java101','Y');
+insert into test1(name,class,working) values('mmm','java101','N');
+insert into test1(name,class,working) values('nnn','java101','Y');
+insert into test1(name,class,working) values('ooo','java101','N'); 
+```
+
 ## select
 - 테이블의 데이터를 조회할 때 사용하는 명령이다.
 ```
 /* 모든 컬럼 값 조회하기. 컬럼 순서는 테이블을 생성할 때 선언한 순서이다.*/
 select * from 테이블;
-select * from test16;
+select * from test1;
 
 /* 특정 컬럼의 값만 조회할 때*/
 select 컬럼명,컬럼명 from 테이블;
 select no, name, tel from test1;
 
 /* 가상의 컬럼 값을 조회하기*/
-select no, concat(name,'(',class,')') from test1; 
+select no, concat(name,'(',class,')') from test1;
 ```
 
 ### 조회하는 컬럼에 별명 붙이기 
@@ -31,8 +53,8 @@ from test1;
 
 /* as를 생략해도 된다.*/
 select 
-    no  num, 
-    concat(name,'(',class,')')  title 
+    no as num, 
+    concat(name,'(',class,')') title 
 from test1; 
 ``` 
 
@@ -74,13 +96,17 @@ select no, name
 from test1
 where working != 'Y';
 
+select no, name
+from test1
+where working <> 'Y';
+
 /* 학생 번호가 짝수인 경우 전화 번호를 '1111'로 변경하라*/
 update test1 set 
     tel = '1111'
 where (no % 2) = 0;
 
 /* 학생 번호가 3의 배수인 경우 전화번호를 '2222'로 변경하라*/
-update test1 set
+update test16 set
   tel = '2222'
 where (no % 3) = 0;
 
@@ -94,6 +120,10 @@ where tel != null;
 select *
 from test1
 where tel is not null;
+
+select *
+from test1
+where not (tel is null);
 
 /* 전화 번호가 없는 학생만 조회하라!*/
 /* => null인지 여부를 가릴 때는 = 연산자가 아닌 is 연산자를 사용해야 한다.*/
@@ -241,7 +271,7 @@ select date_sub(now(), interval 11 day);
 
 /* 두 날짜 사이의 간격을 알아내기 */
 datediff(날짜1, 날짜2);
-select datediff(curdate(), '2018-12-25');
+select datediff(curdate(), '2018-3-19');
 
 /* 날짜에서 특정 형식으로 값을 추출하기 */
 date_format(날짜, 형식)
@@ -267,3 +297,22 @@ insert into test1 (title, regdt) values('bbbb', '11/22/2017');
 insert into test1 (title, regdt) 
   values('bbbb', str_to_date('11/22/2017', '%m/%d/%Y'));
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
