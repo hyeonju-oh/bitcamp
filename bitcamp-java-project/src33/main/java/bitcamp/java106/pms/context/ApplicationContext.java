@@ -105,7 +105,8 @@ public class ApplicationContext {
     }
     
     private Object callConstructor(Constructor<?> constructor) throws Exception {
-        System.out.println(constructor.getName() + "호출");
+        System.out.println(constructor.getName() + " 호출");
+        
         if (containsDefaultType(constructor))
             return null;
         
@@ -124,13 +125,14 @@ public class ApplicationContext {
     }
     
     private Object findObject(Class<?> clazz) throws Exception {
-        System.out.println(clazz.getName() + "객체 찾기");
+        System.out.println(clazz.getName() + " 객체 찾기");
         Object obj = objPool.get(clazz.getName());
         if (obj != null) { // 그 클래스 타입과 일치하는 객체가 있다면 그 객체를 리턴,
             return obj;
-        } 
-
-        // 만약 타입이 일치하지 않더라고 서브 클래스이거나 인터페이스 구현체인 경우에는 그 객체를 리턴한다.
+        }
+        
+        // 만약 타입이 일치하지 않더라도 서브 클래스이거나 인터페이스 구현체인 경우에는 
+        // 그 객체를 리턴한다.
         Collection<?> objs = objPool.values();
         for (Object obj2 : objs) {
             if (clazz.isInstance(obj2)) {
@@ -188,7 +190,7 @@ public class ApplicationContext {
     }
     
     public Object getBean(Class<?> type) {
-        Collection<?> objList = objPool.values();
+        Collection<Object> objList = objPool.values();
         for (Object obj : objList) {
             if (obj.getClass() == type) 
                 return obj;
@@ -197,6 +199,7 @@ public class ApplicationContext {
     }
 }
 
+//ver 32 - 제네릭 <?> 적용 및 생성자, findObject() 메서드 변경
 //ver 28 - default 생성자 추가
 //ver 24 - 타입으로 객체를 찾는 getBean() 메서드 추가
 //ver 23 - 클래스 정의
