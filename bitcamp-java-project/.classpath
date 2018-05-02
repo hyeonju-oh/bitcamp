@@ -41,6 +41,11 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry sourcepath="C:/Users/Bit/.gradle/caches/modules-2/files-2.1/javax.servlet/javax.servlet-api/4.0.1/49a9da44db6e6b5f44ce15ddfcfe2b6666151b25/javax.servlet-api-4.0.1-sources.jar" kind="lib" path="C:/Users/Bit/.gradle/caches/modules-2/files-2.1/javax.servlet/javax.servlet-api/4.0.1/a27082684a2ff0bf397666c3943496c44541d1ca/javax.servlet-api-4.0.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry sourcepath="C:/Users/Bit/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/2.6.0/194303f1352442121424c408d9affa2c352a9437/protobuf-java-2.6.0-sources.jar" kind="lib" path="C:/Users/Bit/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/2.6.0/88ba32feefe385d5dc284b71f649201eabd15778/protobuf-java-2.6.0.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
