@@ -27,11 +27,17 @@ public class ServerRequest {
         
         for (String entry : entryArr) {
             String[] keyValue = entry.split("=");
+            
             try {
-                this.paramMap.put(keyValue[0], URLDecoder.decode(keyValue[1], "UTF-8"));
-                
+                this.paramMap.put(keyValue[0],
+                        /*keyValue[1]는 UTF-8 코드를 ASCII 문자화시킨 것이다.
+                         * 즉 UTF-8 코드를 URL 인코딩 한 것이다
+                         * 그러니 원래 UTF-8로 만든 후 (다시 디코딩 하여)에
+                         * 이것을 다시 UTF-16으로 만들어 자바 String 객체를 리턴하라!*/
+                        
+                        URLDecoder.decode(keyValue[1], "UTF-8"));
             } catch (Exception e) {
-                System.out.println("URL 디코딩 오류");
+                System.out.println("URL 디코딩 오류!");
             }
         }
     }
