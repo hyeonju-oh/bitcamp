@@ -1,5 +1,6 @@
 package bitcamp.java106.pms;
 
+import java.sql.Date;
 import java.util.Scanner;
 
 import bitcamp.java106.pms.controller.BoardController;
@@ -11,6 +12,8 @@ import bitcamp.java106.pms.dao.MemberDao;
 import bitcamp.java106.pms.dao.TaskDao;
 import bitcamp.java106.pms.dao.TeamDao;
 import bitcamp.java106.pms.dao.TeamMemberDao;
+import bitcamp.java106.pms.domain.Member;
+import bitcamp.java106.pms.domain.Team;
 import bitcamp.java106.pms.util.Console;
 
 public class App {
@@ -35,6 +38,9 @@ public class App {
         MemberDao memberDao = new MemberDao();
         TaskDao taskDao = new TaskDao();
         TeamMemberDao teamMemberDao = new TeamMemberDao(); 
+        
+        prepareMemberData(memberDao);
+        prepareTeamData(teamDao, teamMemberDao);
         
         TeamController teamController = new TeamController(keyScan, teamDao);
         MemberController memberController = new MemberController(keyScan, memberDao);
@@ -67,6 +73,8 @@ public class App {
                 memberController.service(menu, option);
             } else if (menu.startsWith("board/")) {
                 boardController.service(menu, option);
+            } else if (menu.startsWith("task/")) {
+                taskController.service(menu, option);
             } else {
                 System.out.println("명령어가 올바르지 않습니다.");
             }
@@ -74,5 +82,58 @@ public class App {
             System.out.println();
         }
     }
+    static void prepareMemberData(MemberDao memberDao) {
+        Member member = new Member();
+        member.setId("aaa");
+        member.setEmail("aaa@test.com");
+        member.setPassword("1111");
+        memberDao.insert(member);
+        
+        member = new Member();
+        member.setId("bbb");
+        member.setEmail("bbb@test.com");
+        member.setPassword("1111");
+        memberDao.insert(member);
+        
+        member = new Member();
+        member.setId("ccc");
+        member.setEmail("ccc@test.com");
+        member.setPassword("1111");
+        memberDao.insert(member);
+        
+        member = new Member();
+        member.setId("ddd");
+        member.setEmail("ddd@test.com");
+        member.setPassword("1111");
+        memberDao.insert(member);
+        
+        member = new Member();
+        member.setId("eee");
+        member.setEmail("eee@test.com");
+        member.setPassword("1111");
+        memberDao.insert(member);
+    }
     
+    static void prepareTeamData(
+            TeamDao teamDao, TeamMemberDao teamMemberDao) {
+        Team team = new Team();
+        team.setName("t1");
+        team.setMaxQty(5);
+        team.setStartDate(Date.valueOf("2018-2-1"));
+        team.setEndDate(Date.valueOf("2018-5-30"));
+        teamDao.insert(team);
+        teamMemberDao.addMember("t1", "aaa");
+        teamMemberDao.addMember("t1", "bbb");
+        teamMemberDao.addMember("t1", "ccc");
+        
+        team = new Team();
+        team.setName("t2");
+        team.setMaxQty(5);
+        team.setStartDate(Date.valueOf("2018-2-1"));
+        team.setEndDate(Date.valueOf("2018-6-30"));
+        teamDao.insert(team);
+        teamMemberDao.addMember("t2", "ccc");
+        teamMemberDao.addMember("t2", "ddd");
+        teamMemberDao.addMember("t2", "eee");
+    }
 }

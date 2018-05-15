@@ -6,7 +6,7 @@ public class TaskDao {
     Task[] tasks = new Task[1000];
     int  taskIndex = 0;
     
-    public TaskDao(Task task) {
+    public void insert(Task task) {
         task.setNo(taskIndex);
         this.tasks[this.taskIndex++] = task;
     }
