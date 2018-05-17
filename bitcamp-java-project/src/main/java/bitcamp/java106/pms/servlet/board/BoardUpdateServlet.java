@@ -2,7 +2,6 @@ package bitcamp.java106.pms.servlet.board;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,8 +14,8 @@ import bitcamp.java106.pms.domain.Board;
 import bitcamp.java106.pms.servlet.InitServlet;
 
 @SuppressWarnings("serial")
-@WebServlet("/board/list")
-public class BoardListServlet extends HttpServlet {
+@WebServlet("/board/update")
+public class BoardUpdateServlet extends HttpServlet {
     BoardDao boardDao;
     
     @Override
@@ -25,41 +24,37 @@ public class BoardListServlet extends HttpServlet {
     }
     
     @Override
-    protected void doGet(
+    protected void doPost(
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
-        // 출력할 때 String 객체의 값(UTF-16)을 어떤 문자표를 사용하여 인코딩해서 보낼 것인지 설정한다.
-        // => 반드시 출력 스트림을 얻기 전에 설정해야 한다.
+        
+        request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        Board board = new Board();
+        board.setNo(Integer.parseInt(request.getParameter("no")));
+        board.setTitle(request.getParameter("title"));
+        board.setContent(request.getParameter("content"));
         
         out.println("<!DOCTYPE html>");
         out.println("<html>");
         out.println("<head>");
         out.println("<meta charset='UTF-8'>");
-        out.println("<title>게시물 목록폼</title>");
+        out.println("<meta http-equiv='Refresh' content='1;url=list'>");
+        out.println("<title>게시물 변경</title>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<h1>게시물 목록</h1>");
-        
+        out.println("<h1>게시물 변경 결과</h1>");
         
         try {
-            List<Board> list = boardDao.selectList();
-            out.println("<p><a href='form.html'>새 글</a></p>");
-            out.println("<table border='1'>");
-            out.println("<tr>");
-            out.println("    <th>번호</th><th>제목</th><th>등록</th>");
-            out.println("</tr>");
-            for (Board board : list) {
-                out.println("<tr>");
-                out.printf("    <td>%d</td><td><a href='view?no=%d'>%s</a></td><td>%s</td>\n",
-                    board.getNo(), board.getNo(),
-                    board.getTitle(), board.getCreatedDate());
-                out.println("</tr>");
+            int count = boardDao.update(board);
+            if (count == 0) {
+                out.println("<p>해당 게시물이 존재하지 않습니다.</p>");
+            } else {
+                out.println("<p>변경하였습니다.</p>");
             }
-            out.println("</table>");
         } catch (Exception e) {
-            out.println("<p>목록 가져오기 실패!</p>");
+            out.println("<p>변경 실패!</p>");
             e.printStackTrace(out);
         }
         out.println("</body>");
@@ -69,4 +64,4 @@ public class BoardListServlet extends HttpServlet {
 
 //ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경
-//ver 26 - BoardController에서 list() 메서드를 추출하여 클래스로 정의. 
+//ver 26 - BoardController에서 update() 메서드를 추출하여 클래스로 정의.

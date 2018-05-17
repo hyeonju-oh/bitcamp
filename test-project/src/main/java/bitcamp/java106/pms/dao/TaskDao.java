@@ -1,21 +1,22 @@
 package bitcamp.java106.pms.dao;
 
+import java.util.ArrayList;
+
 import bitcamp.java106.pms.domain.Task;
 
 public class TaskDao {
-    Task[] tasks = new Task[1000];
-    int  taskIndex = 0;
+    private ArrayList collection = new ArrayList(); 
     
     public void insert(Task task) {
-        task.setNo(taskIndex);
-        this.tasks[this.taskIndex++] = task;
+        collection.add(task);
     }
     
     private int count(String teamName) {
         int cnt = 0;
-        for (int i = 0; i < taskIndex; i++) {
-            if (tasks[i] == null) continue;
-            if (tasks[i].getTeam().getName().toLowerCase().equals(teamName)) {
+        for (int i = 0; i < collection.size(); i++) {
+            Task task = (Task) collection.get(i);
+            if (task.getTeam().getName().toLowerCase().equals(
+                    teamName.toLowerCase())) {
                 cnt++;
             }
         }
@@ -24,21 +25,22 @@ public class TaskDao {
     
     public Task[] list(String teamName) {
         Task[] arr = new Task[this.count(teamName)];
-        for (int i = 0, x = 0; i < taskIndex; i++) {
-            if (tasks[i] == null) continue;
-            if (tasks[i].getTeam().getName().toLowerCase().equals(teamName)) {
-                arr[x++] = tasks[i];
+        for (int i = 0, x = 0; i < collection.size(); i++) {
+            Task task = (Task) collection.get(i);
+            if (task.getTeam().getName().toLowerCase().equals(
+                    teamName.toLowerCase())) {
+                arr[x++] = task;
             }
         }
         return arr;
     }
     
     public Task get(String teamName, int taskNo) {
-        for (int i = 0; i < taskIndex; i++) {
-            if (tasks[i] == null) continue;
-            if (tasks[i].getTeam().getName().toLowerCase().equals(teamName) &&
-                tasks[i].getNo() == taskNo) {
-                return tasks[i];
+        for (int i = 0; i < collection.size(); i++) {
+            Task task = collection.get(i);
+            if (task.getTeam().getName().toLowerCase().equals(teamName) &&
+                task.getNo() == taskNo) {
+                return task;
             }
         }
         return null;

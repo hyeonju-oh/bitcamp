@@ -1,27 +1,28 @@
 package bitcamp.java106.pms.dao;
 
+import java.util.ArrayList;
+
 import bitcamp.java106.pms.domain.Member;
 
 public class MemberDao {
-    Member[] members = new Member[1000];
-    int memberIndex = 0;
+    private ArrayList collection = new ArrayList();
     
     public void insert(Member member) {
-        this.members[memberIndex++] = member;
+        collection.add(member);
     }
     
     public Member[] list() {
-        Member[] arr = new Member[memberIndex];
-        for (int i = 0; i < memberIndex; i++) {
-            arr[i] = members[i];
+        Member[] arr = new Member[collection.size()];
+        for (int i = 0; i < collection.size(); i++) {
+            arr[i] = (Member) collection.get(i);
         }
         return arr;
     }
     
     private int getMemberIndex(String id) {
-        for (int i = 0; i < memberIndex; i++) {
-            if (members[i] == null) continue;
-            if (id.equals(members[i].getId().toLowerCase())) {
+        for (int i = 0; i < collection.size(); i++) {
+            Member originMember = (Member) collection.get(i);
+            if (originMember.getId().toLowerCase().equals(id.toLowerCase())) {
                 return i;
             }
         }
@@ -32,18 +33,18 @@ public class MemberDao {
         int i = getMemberIndex(id);
         if (i == -1)
             return null;
-        return members[i];
+        return (Member) collection.get(i);
     }
     
     public void update(Member member) {
         int i = getMemberIndex(member.getId());
         if (i != -1)
-            members[i] = member;
+            collection.set(i, member);
     }
     
     public void delete(String id) {
         int i = getMemberIndex(id);
         if (i != -1)
-            members[i] = null;
+            collection.remove(i);
     }
 }
