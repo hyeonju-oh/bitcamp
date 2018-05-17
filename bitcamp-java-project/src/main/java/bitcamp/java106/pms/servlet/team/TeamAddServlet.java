@@ -1,3 +1,4 @@
+// Controller 규칙에 따라 메서드 작성
 package bitcamp.java106.pms.servlet.team;
 
 import java.io.IOException;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import bitcamp.java106.pms.dao.TeamDao;
 import bitcamp.java106.pms.domain.Team;
+import bitcamp.java106.pms.server.ServerRequest;
+import bitcamp.java106.pms.server.ServerResponse;
 import bitcamp.java106.pms.servlet.InitServlet;
 
 @SuppressWarnings("serial")
@@ -31,6 +34,9 @@ public class TeamAddServlet extends HttpServlet {
             HttpServletResponse response) throws ServletException, IOException {
         
         request.setCharacterEncoding("UTF-8");
+        
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
 
         Team team = new Team();
         team.setName(request.getParameter("name"));
@@ -39,15 +45,11 @@ public class TeamAddServlet extends HttpServlet {
         team.setStartDate(Date.valueOf(request.getParameter("startDate")));
         team.setEndDate(Date.valueOf(request.getParameter("endDate")));
 
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        
         out.println("<!DOCTYPE html>");
         out.println("<html>");
         out.println("<head>");
         out.println("<meta charset='UTF-8'>");
         out.println("<meta http-equiv='Refresh' content='1;url=list'>");
-        
         out.println("<title>팀 등록</title>");
         out.println("</head>");
         out.println("<body>");
@@ -65,7 +67,6 @@ public class TeamAddServlet extends HttpServlet {
     }
 }
 
-//ver 37 - 컨트롤러를 서블릿으로 변경
 //ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경
 //ver 26 - TeamController에서 add() 메서드를 추출하여 클래스로 정의.
