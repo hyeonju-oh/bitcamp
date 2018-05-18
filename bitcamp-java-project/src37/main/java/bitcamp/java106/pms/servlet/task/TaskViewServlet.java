@@ -89,6 +89,16 @@ public class TaskViewServlet extends HttpServlet {
             out.println("        <select name='memberId'>");
             out.println("            <option value=''>--선택 안함--</option>");
             
+            /*String worker = null;
+            if (task.getWorker() != null) {
+                worker = task.getWorker().getId();
+            }
+            for (Member member : members) {
+                out.printf("            <option %s>%s</option>\n", 
+                        (member.getId().equals(worker)) ? "selected" : "",
+                        member.getId());
+            }*/
+            
             for (Member member : members) {
                 out.printf("            <option %s>%s</option>\n",
                         (member.equals(task.getWorker())) ? "selected" : "",
