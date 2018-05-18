@@ -4,6 +4,7 @@ package bitcamp.java106.pms.servlet.teammember;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,34 +37,21 @@ public class TeamMemberDeleteServlet extends HttpServlet {
         String teamName = request.getParameter("teamName");
         String memberId = request.getParameter("memberId");
         
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta charset='UTF-8'>");
-        out.printf("<meta http-equiv='Refresh' content='1;url=../view?name=%s'>\n",
-                teamName);
-        
-        out.println("<title>팀 회원 삭제</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>팀 회원 삭제 결과</h1>");
-        
         try {
             int count = teamMemberDao.delete(teamName, memberId);
             if (count == 0) {
-                out.println("<p>해당 팀원이 존재하지 않습니다.</p>");
-            } else {
-                out.println("<p>팀에서 회원을 삭제하였습니다.</p>");
-            }
+                throw new Exception("해당 팀원이 존재하지 않습니다.");
+            } 
+            response.sendRedirect("../view?name=" + teamName);
+            
         } catch (Exception e) {
-            out.println("<p>팀 회원 삭제 실패!</p>");
-            e.printStackTrace(out);
+            RequestDispatcher 요청배달자 = request.getRequestDispatcher("/error");
+            request.setAttribute("error", e);
+            request.setAttribute("title", "팀 회원 삭제 실패!");
+            // 다른 서블릿으로 실행을 위임할 때,
+            // 이전까지 버퍼로 출력한 데이터를 버린다.
+            요청배달자.forward(request, response);
         }
-        out.println("</body>");
-        out.println("</html>");
     }
 }
 

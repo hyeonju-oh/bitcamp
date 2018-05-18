@@ -5,19 +5,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.stereotype.Component;
-
-import bitcamp.java106.pms.controller.Controller;
 import bitcamp.java106.pms.dao.TeamDao;
 import bitcamp.java106.pms.domain.Team;
-import bitcamp.java106.pms.server.ServerRequest;
-import bitcamp.java106.pms.server.ServerResponse;
 import bitcamp.java106.pms.servlet.InitServlet;
 
 @SuppressWarnings("serial")
@@ -70,8 +66,12 @@ public class TeamListServlet extends HttpServlet {
             }
             out.println("</table>");
         } catch (Exception e) {
-            out.println("<p>목록 가져오기 실패!</p>");
-            e.printStackTrace(out);
+            RequestDispatcher 요청배달자 = request.getRequestDispatcher("/error");
+            request.setAttribute("error", e);
+            request.setAttribute("title", "팀 목록조회 실패!");
+            // 다른 서블릿으로 실행을 위임할 때,
+            // 이전까지 버퍼로 출력한 데이터를 버린다.
+            요청배달자.forward(request, response);
         }
         out.println("</body>");
         out.println("</html>");
