@@ -1,8 +1,7 @@
-// Controller 규칙에 따라 메서드 작성
 package bitcamp.java106.pms.servlet.teammember;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.net.URLEncoder;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,31 +43,34 @@ public class TeamMemberAddServlet extends HttpServlet {
         String memberId = request.getParameter("memberId");
         
         try {
-            
             Team team = teamDao.selectOne(teamName);
             if (team == null) {
                 throw new Exception(teamName + " 팀은 존재하지 않습니다.");
             }
             Member member = memberDao.selectOne(memberId);
             if (member == null) {
-                throw new Exception(memberId + " 회원은 없습니다");
+                throw new Exception(memberId + " 회원은 없습니다.");
             }
             if (teamMemberDao.isExist(teamName, memberId)) {
                 throw new Exception("이미 등록된 회원입니다.");
             }
             teamMemberDao.insert(teamName, memberId);
-            response.sendRedirect("../view?name=" + teamName);
+            response.sendRedirect("../view?name=" + 
+                    URLEncoder.encode(teamName, "UTF-8"));
+            
         } catch (Exception e) {
             RequestDispatcher 요청배달자 = request.getRequestDispatcher("/error");
             request.setAttribute("error", e);
             request.setAttribute("title", "팀 회원 등록 실패!");
-            // 다른 서블릿으로 실행을 위임할 때,
-            // 이전까지 버퍼로 출력한 데이터를 버린다.
             요청배달자.forward(request, response);
         }
     }
+    
 }
 
+//ver 39 - forward 적용
+//ver 38 - redirect 적용
+//ver 37 - 컨트롤러를 서블릿으로 변경
 //ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경
 //ver 26 - TeamMemberController에서 add() 메서드를 추출하여 클래스로 정의.

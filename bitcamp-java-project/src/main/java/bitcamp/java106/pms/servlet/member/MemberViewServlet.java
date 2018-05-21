@@ -45,6 +45,7 @@ public class MemberViewServlet extends HttpServlet {
         out.println("<body>");
         out.println("<h1>멤버 보기</h1>");
         out.println("<form action='update' method='post'>");
+        
         try {
             Member member = memberDao.selectOne(id);
     
@@ -68,7 +69,7 @@ public class MemberViewServlet extends HttpServlet {
             request.setAttribute("error", e);
             request.setAttribute("title", "회원 상세조회 실패!");
             // 다른 서블릿으로 실행을 위임할 때,
-            // 이전까지 버퍼로 출력한 데이터를 버린다.
+            // 이전까지 버퍼로 출력한 데이터는 버린다.
             요청배달자.forward(request, response);
         }
         out.println("<p>");
@@ -82,6 +83,7 @@ public class MemberViewServlet extends HttpServlet {
     }
 }
 
+//ver 39 - forward 적용
 //ver 37 - 컨트롤러를 서블릿으로 변경
 //ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경

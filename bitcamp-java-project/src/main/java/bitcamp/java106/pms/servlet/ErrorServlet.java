@@ -1,3 +1,4 @@
+// 오류 처리 작업을 수행하는 서블릿 - forward 적용
 package bitcamp.java106.pms.servlet;
 
 import java.io.IOException;
@@ -26,10 +27,9 @@ public class ErrorServlet extends HttpServlet {
         out.println("<meta charset='UTF-8'>");
         String refererUrl = request.getHeader("Referer");
         if (refererUrl != null) {
-            out.printf("<meta http-equiv='Refresh' content='5;url=%s'>",
-                    refererUrl);
+            out.printf("<meta http-equiv='Refresh' content='5;url=%s'>", refererUrl); 
         }
-        out.println("<title>실행 오류!</title>");
+        out.println("<title>실행 오류</title>");
         out.println("</head>");
         out.println("<body>");
         out.printf("<h1>%s</h1>\n", request.getAttribute("title"));
@@ -41,3 +41,22 @@ public class ErrorServlet extends HttpServlet {
         out.println("</html>");
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

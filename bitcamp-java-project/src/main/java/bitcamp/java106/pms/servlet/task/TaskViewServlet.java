@@ -1,4 +1,3 @@
-// Controller 규칙에 따라 메서드 작성
 package bitcamp.java106.pms.servlet.task;
 
 import java.io.IOException;
@@ -39,8 +38,6 @@ public class TaskViewServlet extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
-        request.setCharacterEncoding("UTF-8");
-        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
@@ -55,23 +52,23 @@ public class TaskViewServlet extends HttpServlet {
         
         try {
             int no = Integer.parseInt(request.getParameter("no"));
-
+            
             Task task = taskDao.selectOne(no);
             if (task == null) {
                 throw new Exception("해당 작업을 찾을 수 없습니다.");
             }
             
-            List<Member> members = teamMemberDao.selectListWithEmail(task.getTeam().getName());
+            List<Member> members = teamMemberDao.selectListWithEmail(
+                    task.getTeam().getName());
             
             out.println("<form action='update' method='post'>");
             out.printf("<input type='hidden' name='no' value='%d'>\n", no);
             out.println("<table border='1'>");
             out.println("<tr>");
             out.printf("    <th>팀명</th>"
-                    + "<td><input type='text' name='teamName' value='%s' readonly></td>\n",
+                    + "<td><input type='text' name='teamName' value='%s' readOnly></td>\n",
                     task.getTeam().getName());
             out.println("</tr>");
-            out.println("<tr>");
             out.println("<tr>");
             out.printf("    <th>작업명</th>"
                     + "<td><input type='text' name='title' value='%s'></td>\n",
@@ -79,12 +76,12 @@ public class TaskViewServlet extends HttpServlet {
             out.println("</tr>");
             out.println("<tr>");
             out.printf("    <th>시작일</th>"
-                    + "<td><input type='date' name='startDate' value='%s'></td>\n",
+                    + "<td><input type='date' name='startDate' value='%s'></td>",
                     task.getStartDate());
             out.println("</tr>");
             out.println("<tr>");
             out.printf("    <th>종료일</th>"
-                    + "<td><input type='date' name='endDate' value='%s'></td>\n",
+                    + "<td><input type='date' name='endDate' value='%s'></td>",
                     task.getEndDate());
             out.println("</tr>");
             out.println("<tr>");
@@ -93,18 +90,8 @@ public class TaskViewServlet extends HttpServlet {
             out.println("        <select name='memberId'>");
             out.println("            <option value=''>--선택 안함--</option>");
             
-            /*String worker = null;
-            if (task.getWorker() != null) {
-                worker = task.getWorker().getId();
-            }
             for (Member member : members) {
-                out.printf("            <option %s>%s</option>\n", 
-                        (member.getId().equals(worker)) ? "selected" : "",
-                        member.getId());
-            }*/
-            
-            for (Member member : members) {
-                out.printf("            <option %s>%s</option>\n", 
+                out.printf("            <option %s>%s</option>\n",
                         (member.equals(task.getWorker())) ? "selected" : "",
                         member.getId());
             }
@@ -114,34 +101,35 @@ public class TaskViewServlet extends HttpServlet {
             out.println("</tr>");
             out.println("<tr>");
             out.println("    <th>작업상태</th><td><select name='state'>");
-            out.printf("       <option value='0' %s>작업대기</option>\n",
+            out.printf("        <option value='0' %s>작업대기</option>\n",
                     (task.getState() == 0) ? "selected" : "");
-            out.printf("       <option value='1' %s>작업중</option>\n",
+            out.printf("        <option value='1' %s>작업중</option>\n",
                     (task.getState() == 1) ? "selected" : "");
-            out.printf("       <option value='9' %s>작업완료</option>\n",
+            out.printf("        <option value='9' %s>작업완료</option>\n",
                     (task.getState() == 9) ? "selected" : "");
-            out.println("   </select></td>");
+            out.println("    </select></td>");
             out.println("</tr>");
             out.println("</table>");
-            out.println("<button>변경</button>");
+            out.println("<button>변경</button> ");
             out.printf("<a href='delete?no=%d&teamName=%s'>삭제</a>\n", 
                     no, task.getTeam().getName());
             out.println("</form>");
-            
+
         } catch (Exception e) {
             RequestDispatcher 요청배달자 = request.getRequestDispatcher("/error");
             request.setAttribute("error", e);
             request.setAttribute("title", "작업 상세조회 실패!");
             // 다른 서블릿으로 실행을 위임할 때,
-            // 이전까지 버퍼로 출력한 데이터를 버린다.
+            // 이전까지 버퍼로 출력한 데이터는 버린다.
             요청배달자.forward(request, response);
         }
         out.println("</body>");
         out.println("</html>");
     }
-
 }
 
+//ver 39 - forward 적용
+//ver 37 - 컨트롤러를 서블릿으로 변경
 //ver 31 - JDBC API가 적용된 DAO 사용
 //ver 28 - 네트워크 버전으로 변경
 //ver 26 - TaskController에서 view() 메서드를 추출하여 클래스로 정의.
