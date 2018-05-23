@@ -23,7 +23,7 @@ public class MemberUpdateServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        ApplicationContext iocContainer = 
+        ApplicationContext iocContainer =
                 WebApplicationContextUtils.getWebApplicationContext(
                         this.getServletContext());
         memberDao = iocContainer.getBean(MemberDao.class);
@@ -33,6 +33,8 @@ public class MemberUpdateServlet extends HttpServlet {
     protected void doPost(
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
+        
+        request.setCharacterEncoding("UTF-8");
         
         try {
             Member member = new Member();

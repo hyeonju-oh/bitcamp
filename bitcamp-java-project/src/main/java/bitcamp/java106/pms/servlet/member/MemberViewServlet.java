@@ -24,7 +24,7 @@ public class MemberViewServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        ApplicationContext iocContainer = 
+        ApplicationContext iocContainer =
                 WebApplicationContextUtils.getWebApplicationContext(
                         this.getServletContext());
         memberDao = iocContainer.getBean(MemberDao.class);
@@ -35,6 +35,7 @@ public class MemberViewServlet extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
         String id = request.getParameter("id");
         
         response.setContentType("text/html;charset=UTF-8");
@@ -47,9 +48,7 @@ public class MemberViewServlet extends HttpServlet {
         out.println("<title>멤버 보기</title>");
         out.println("</head>");
         out.println("<body>");
-
         request.getRequestDispatcher("/header").include(request, response);
-        
         out.println("<h1>멤버 보기</h1>");
         out.println("<form action='update' method='post'>");
         

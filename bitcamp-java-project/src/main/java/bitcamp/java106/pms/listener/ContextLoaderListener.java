@@ -12,6 +12,11 @@ import bitcamp.java106.pms.support.WebApplicationContextUtils;
 
 @WebListener
 public class ContextLoaderListener implements ServletContextListener {
+    static ApplicationContext container;
+    
+    public static ApplicationContext getApplicationContext() {
+        return container;
+    }
     
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -19,21 +24,18 @@ public class ContextLoaderListener implements ServletContextListener {
         String configClassName = sc.getInitParameter("contextConfigLocation");
         
         try {
-        // 서블릿 컨테이너가 시작되면 스프링 IoC 컨테이너를 준비한다.
-        ApplicationContext iocContainer = 
-                new AnnotationConfigApplicationContext(Class.forName(configClassName));
-        
-        // 서블릿에서 스프링 IoC 컨테이너를 꺼내 쓸 수 있도록,
-        // WebApplicationContextUtils에 보관한다.
-        WebApplicationContextUtils.containers.put(
-                sce.getServletContext(), iocContainer);
-        
-        // 왜, 이렇게 복잡하게 하는가?
-        // => 스프링을 모방하기 위함이다.
-        // => 그냥 그렇게 이해하라!
+            // 서블릿 컨테이너가 시작되면 스프링 IoC 컨테이너를 준비한다.
+            ApplicationContext iocContainer = 
+                    new AnnotationConfigApplicationContext(
+                            Class.forName(configClassName));
+            container = iocContainer;
+            
+            // 서블릿에서 스프링 IoC 컨테이너를 꺼내 쓸 수 있도록,
+            // WebApplicationContextUtils에 보관한다.
+            WebApplicationContextUtils.containers.put(
+                    sce.getServletContext(), iocContainer);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }

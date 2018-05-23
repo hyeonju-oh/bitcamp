@@ -24,8 +24,9 @@ public class BoardViewServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        ApplicationContext iocContainer = WebApplicationContextUtils.getWebApplicationContext(
-                this.getServletContext());
+        ApplicationContext iocContainer =
+                WebApplicationContextUtils.getWebApplicationContext(
+                        this.getServletContext());
         boardDao = iocContainer.getBean(BoardDao.class);
     }
     
@@ -34,6 +35,7 @@ public class BoardViewServlet extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
+        //request.setCharacterEncoding("UTF-8");
         int no = Integer.parseInt(request.getParameter("no"));
         
         response.setContentType("text/html;charset=UTF-8");
@@ -48,7 +50,6 @@ public class BoardViewServlet extends HttpServlet {
         out.println("<body>");
         
         request.getRequestDispatcher("/header").include(request, response);
-        
         out.println("<h1>게시물 보기</h1>");
         out.println("<form action='update' method='post'>");
         try {

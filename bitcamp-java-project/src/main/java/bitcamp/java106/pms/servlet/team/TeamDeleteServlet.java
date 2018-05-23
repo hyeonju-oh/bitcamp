@@ -26,12 +26,12 @@ public class TeamDeleteServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        ApplicationContext iocContainer = 
+        ApplicationContext iocContainer =
                 WebApplicationContextUtils.getWebApplicationContext(
                         this.getServletContext());
         teamDao = iocContainer.getBean(TeamDao.class);
-        taskDao = iocContainer.getBean(TaskDao.class);
         teamMemberDao = iocContainer.getBean(TeamMemberDao.class);
+        taskDao = iocContainer.getBean(TaskDao.class);
     }
 
     @Override
@@ -39,7 +39,9 @@ public class TeamDeleteServlet extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
+        request.setCharacterEncoding("UTF-8");
         String name = request.getParameter("name");
+        
         
         try {
             teamMemberDao.delete(name);

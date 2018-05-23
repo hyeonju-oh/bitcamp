@@ -28,7 +28,7 @@ public class TaskListServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        ApplicationContext iocContainer = 
+        ApplicationContext iocContainer =
                 WebApplicationContextUtils.getWebApplicationContext(
                         this.getServletContext());
         teamDao = iocContainer.getBean(TeamDao.class);
@@ -40,6 +40,7 @@ public class TaskListServlet extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
+        request.setCharacterEncoding("UTF-8");
         String teamName = request.getParameter("teamName");
 
         response.setContentType("text/html;charset=UTF-8");
@@ -52,9 +53,7 @@ public class TaskListServlet extends HttpServlet {
         out.println("<title>작업 목록</title>");
         out.println("</head>");
         out.println("<body>");
-        
         request.getRequestDispatcher("/header").include(request, response);
-        
         out.printf("<h1><a href='../team/view?name=%s'>%s</a>의 작업 목록</h1>\n", 
                 teamName, teamName);
         

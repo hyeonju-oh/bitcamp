@@ -24,7 +24,7 @@ public class ClassroomAddServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        ApplicationContext iocContainer = 
+        ApplicationContext iocContainer =
                 WebApplicationContextUtils.getWebApplicationContext(
                         this.getServletContext());
         classroomDao = iocContainer.getBean(ClassroomDao.class);
@@ -34,6 +34,8 @@ public class ClassroomAddServlet extends HttpServlet {
     protected void doPost(
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
+        
+        request.setCharacterEncoding("UTF-8");
         
         try {
             Classroom classroom = new Classroom();

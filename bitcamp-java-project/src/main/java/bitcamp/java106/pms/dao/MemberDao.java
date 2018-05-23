@@ -57,7 +57,7 @@ public class MemberDao {
             return sqlSession.selectOne(
                     "bitcamp.java106.pms.dao.MemberDao.selectOne", id);
         }   
-    }    
+    }
     
     public Member selectOneWithPassword(String id, String password) throws Exception {
         try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
@@ -67,7 +67,7 @@ public class MemberDao {
             return sqlSession.selectOne(
                     "bitcamp.java106.pms.dao.MemberDao.selectOneWithPassword", params);
         }   
-    }
+    } 
 }
 
 //ver 33 - Mybatis 적용

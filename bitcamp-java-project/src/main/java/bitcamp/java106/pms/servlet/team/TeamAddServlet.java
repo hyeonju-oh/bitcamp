@@ -24,7 +24,7 @@ public class TeamAddServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        ApplicationContext iocContainer = 
+        ApplicationContext iocContainer =
                 WebApplicationContextUtils.getWebApplicationContext(
                         this.getServletContext());
         teamDao = iocContainer.getBean(TeamDao.class);
@@ -35,6 +35,7 @@ public class TeamAddServlet extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
         
+        request.setCharacterEncoding("UTF-8");
         
         try {
             Team team = new Team();

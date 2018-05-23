@@ -24,7 +24,7 @@ public class TeamViewServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        ApplicationContext iocContainer = 
+        ApplicationContext iocContainer =
                 WebApplicationContextUtils.getWebApplicationContext(
                         this.getServletContext());
         teamDao = iocContainer.getBean(TeamDao.class);
@@ -35,6 +35,7 @@ public class TeamViewServlet extends HttpServlet {
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
         String name = request.getParameter("name");
         
         response.setContentType("text/html;charset=UTF-8");
@@ -47,9 +48,7 @@ public class TeamViewServlet extends HttpServlet {
         out.println("<title>팀 보기</title>");
         out.println("</head>");
         out.println("<body>");
-        
         request.getRequestDispatcher("/header").include(request, response);
-        
         out.println("<h1>팀 보기</h1>");
         
         try {
@@ -91,11 +90,11 @@ public class TeamViewServlet extends HttpServlet {
             out.println("</p>");
             out.println("</form>");
             
-            // 팀 회원의 목록을 출력하는 것은 TeamMameberListServlet에게 맡긴다.
+            // 팀 회원의 목록을 출력하는 것은 TeamMemberListServlet에게 맡긴다.
             RequestDispatcher 요청배달자 = request.getRequestDispatcher("/team/member/list");
             요청배달자.include(request, response);
             // TeamMemberListServlet이 작업을 수행한 후 이 서블릿으로 되돌아 온다.
-            
+               
         } catch (Exception e) {
             RequestDispatcher 요청배달자 = request.getRequestDispatcher("/error");
             request.setAttribute("error", e);

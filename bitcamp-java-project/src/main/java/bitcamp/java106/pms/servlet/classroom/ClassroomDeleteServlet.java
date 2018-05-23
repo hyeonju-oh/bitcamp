@@ -22,7 +22,7 @@ public class ClassroomDeleteServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        ApplicationContext iocContainer = 
+        ApplicationContext iocContainer =
                 WebApplicationContextUtils.getWebApplicationContext(
                         this.getServletContext());
         classroomDao = iocContainer.getBean(ClassroomDao.class);
