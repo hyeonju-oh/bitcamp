@@ -11,12 +11,12 @@
 <title>팀 목록</title>
 </head>
 <body>
-<div id='header'>
-<a href='/bitcamp-java-project/auth/login'>로그인</a></div>
+<jsp:include page ="/header.jsp"/>
 <h1>팀 목록(MVC)</h1>
-<%
-List<Team> list = (List<Team>)request.getAttribute("list");
-%>
+<jsp:useBean id="list"
+            type="java.util.List<Team>"
+            class="java.util.ArrayList"
+             scope="request"/>
 <p><a href='form.html'>새 팀</a></p>
 <table border='1'>
 <tr>
@@ -26,9 +26,9 @@ List<Team> list = (List<Team>)request.getAttribute("list");
 <% for (Team team : list) { %>
 <tr>
     <td><a href='view?name=<%=team.getName()%>'><%=team.getName()%></a></td>
-    <td><%=team.getMaxQty()%></td><td><%=team.getStartDate()%>~<%=team.getEndDate()%></td>
+    <td><%=team.getMaxQty()%></td>
+    <td><%=team.getStartDate()%>~<%=team.getEndDate()%></td>
 </tr>
-
 <%} %>
 
 </table>

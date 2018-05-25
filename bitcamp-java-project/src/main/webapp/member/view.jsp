@@ -8,12 +8,9 @@
 <title>멤버 보기</title>
 </head>
 <body>
-<div id='header'>
-<a href='/bitcamp-java-project/auth/login'>로그인</a></div>
+<jsp:include page ="/header.jsp"/>
 <h1>멤버 보기(MVC)</h1>
-<%
-Member member = (Member)request.getAttribute("member");
-%>
+<jsp:useBean id="member" class="bitcamp.java106.pms.domain.Member" scope="request"/>
 <form action='update' method='post'>
 <table border='1'>
 <tr><th>아이디</th><td>

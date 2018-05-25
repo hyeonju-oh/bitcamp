@@ -10,15 +10,11 @@
 <title>작업 보기</title>
 </head>
 <body>
-<div id='header'>
-<a href='/bitcamp-java-project/auth/login'>로그인</a></div>
+<jsp:include page ="/header.jsp"/>
 <h1>작업 보기(MVC)</h1>
-<%
-Task task = (Task)request.getAttribute("task");
-List<Member> members = (List<Member>)request.getAttribute("members");
-%>
+<jsp:useBean id="task" class="bitcamp.java106.pms.domain.Task" scope="request"/>
 <form action='update' method='post'>
-<input type='hidden' name='no' value='<%=task.getNo()%>'>
+<input type='hidden' name='no' value='<%=request.getParameter("no")%>'>
 <table border='1'>
 <tr>
     <th>팀명</th><td><input type='text' name='teamName' value='<%=task.getTeam().getName()%>' readOnly></td>
@@ -34,28 +30,27 @@ List<Member> members = (List<Member>)request.getAttribute("members");
     <th>작업자</th>
     <td>
         <select name='memberId'>
-                <option value=''>--선택 안함--</option>
-                <% for (Member member : members) { 
-                    if (member.getId().equals(task.getWorker().getId())) {
-                %>
-                <option selected><%=member.getId()%></option>
-                <%} else{ %>
-                <option ><%=member.getId() %></option>
-                <%} 
-                    }%>
+            <option value=''>--선택 안함--</option>
+<% 
+List<Member> members = (List<Member>) request.getAttribute("members");
+for (Member member : members) {
+    String selected = (member.equals(task.getWorker())) ? "selected" : "";
+%>
+            <option <%=selected%>><%=member.getId()%></option>
+<%} %>
         </select>
     </td>
 </tr>
 <tr>
     <th>작업상태</th><td><select name='state'>
-        <option value='0' selected>작업대기</option>
-        <option value='1' >작업중</option>
-        <option value='9' >작업완료</option>
+        <option value='0' <%=(task.getState() == 0) ? "selected" : ""%>>작업대기</option>
+        <option value='1' <%=(task.getState() == 1) ? "selected" : ""%>>작업중</option>
+        <option value='9' <%=(task.getState() == 9) ? "selected" : ""%>>작업완료</option>
     </select></td>
 </tr>
 </table>
 <button>변경</button> 
-<a href='delete?no=<%=task.getNo()%>&teamName=<%=task.getTeam()%>'>삭제</a>
+<a href='delete?no=<%=request.getParameter("no")%>&teamName=<%=task.getTeam().getName()%>'>삭제</a>
 </form>
 </body>
 </html>

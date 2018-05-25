@@ -2,7 +2,6 @@
 <%@ page language="java" 
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,17 +9,13 @@
 <title>팀 보기</title>
 </head>
 <body>
-<div id='header'>
-<a href='/bitcamp-java-project/auth/login'>로그인</a></div>
+<jsp:include page ="/header.jsp"/>
 <h1>팀 보기(MVC)</h1>
-<%
-String name = (String)request.getAttribute("name");
-Team team = (Team)request.getAttribute("team");
-%>
+<jsp:useBean id="team" class="bitcamp.java106.pms.domain.Team" scope="request"/>
 <form action='update' method='post'>
 <table border='1'>
 <tr>
-    <th>팀명</th><td><input type="text" name="name" value='<%=name%>' readonly></td>
+    <th>팀명</th><td><input type="text" name="name" value='<%=team.getName()%>' readonly></td>
 </tr>
 <tr>
     <th>설명</th><td><textarea name="description" 
@@ -39,8 +34,10 @@ Team team = (Team)request.getAttribute("team");
 <p>
 <a href='list'>목록</a>
 <button>변경</button>
-<a href='delete?name=<%=name%>'>삭제</a>
-<a href='../task/list?teamName=<%=name %>'>작업목록</a>
+<a href='delete?name=<%=team.getName()%>'>삭제</a>
+<a href='../task/list?teamName=<%=team.getName()%>'>작업목록</a>
 </p>
 </form>
-    
+<jsp:include page ="/team/member/list.jsp"/>
+</body>
+</html>

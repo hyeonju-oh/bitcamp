@@ -9,16 +9,18 @@
 <title>강의 목록</title>
 </head>
 <body>
-<div id='header'>
-<a href='/bitcamp-java-project/auth/login'>로그인</a></div>
+<jsp:include page ="/header.jsp"/>
 <h1>강의 목록(MVC)</h1>
 <p><a href='form.html'>새 강의</a></p>
 <table border='1'>
 <tr>
     <th>번호</th><th>강의명</th><th>기간</th><th>강의실</th>
 </tr>
+<jsp:useBean id="list"
+            type="java.util.List<Classroom>"
+            class="java.util.ArrayList"
+             scope="request"/>
 <%
-List<Classroom> list = (List<Classroom>)request.getAttribute("list");
 for (Classroom classroom : list) {
 %>
 <tr>

@@ -2,7 +2,6 @@ package bitcamp.java106.pms.servlet.team;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,33 +32,23 @@ public class TeamViewServlet extends HttpServlet {
     protected void doGet(
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
-
-        
         
         try {
             String name = request.getParameter("name");
-            Team team = teamDao.selectOne(name);
+            Team team = teamDao.selectOneWithMembers(name);
     
             if (team == null) {
                 throw new Exception("유효하지 않은 팀입니다.");
             }
-            response.setContentType("text/html;charset=UTF-8");
-            
-            request.setAttribute("name", name);
             request.setAttribute("team", team);
             
+            response.setContentType("text/html;charset=UTF-8");
             request.getRequestDispatcher("/team/view.jsp").include(request, response);
             
-            // 팀 회원의 목록을 출력하는 것은 TeamMemberListServlet에게 맡긴다.
-            RequestDispatcher 요청배달자 = request.getRequestDispatcher("/team/member/list");
-            요청배달자.include(request, response);
-            // TeamMemberListServlet이 작업을 수행한 후 이 서블릿으로 되돌아 온다.
-               
         } catch (Exception e) {
-            RequestDispatcher 요청배달자 = request.getRequestDispatcher("/error");
             request.setAttribute("error", e);
             request.setAttribute("title", "팀 상세조회 실패!");
-            요청배달자.forward(request, response);
+            request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
     }
 }

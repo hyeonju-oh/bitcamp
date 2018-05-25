@@ -8,12 +8,9 @@
 <title>게시물 보기</title>
 </head>
 <body>
-<div id='header'>
-<a href='/bitcamp-java-project/auth/login'>로그인</a></div>
-<h1>게시물 보기(MVC)</h1>
-<%
-Board board = (Board)request.getAttribute("board");
-%>
+<jsp:include page ="/header.jsp"/>
+<h1>게시물 보기(MVC + JSP 전용 태그)</h1>
+<jsp:useBean id="board" class="bitcamp.java106.pms.domain.Board" scope="request"/>
 <form action='update' method='post'>
 <table border='1'>
 <tr><th>번호</th><td>
