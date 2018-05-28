@@ -1,4 +1,3 @@
-<%@page import="bitcamp.java106.pms.domain.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,7 +17,6 @@
     <td><input type='email' name='email' value='${member.email}'></td></tr>
 <tr><th>암호</th>
     <td><input type='password' name='password'></td></tr>
-
 </table>
 <p>
 <a href='list'>목록</a>
