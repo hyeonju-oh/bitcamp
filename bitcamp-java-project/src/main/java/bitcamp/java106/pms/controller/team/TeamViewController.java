@@ -1,38 +1,41 @@
-package bitcamp.java106.pms.controller.classroom;
+package bitcamp.java106.pms.controller.team;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
 
-import bitcamp.java106.pms.controller.PageController;
-import bitcamp.java106.pms.dao.ClassroomDao;
-import bitcamp.java106.pms.domain.Classroom;
+import bitcamp.java106.pms.dao.TeamDao;
+import bitcamp.java106.pms.domain.Team;
 import bitcamp.java106.pms.web.RequestMapping;
 
-@Component("/classroom/view")
-public class ClassroomViewController {
+@Component("/team/view")
+public class TeamViewController {
 
-    ClassroomDao classroomDao;
+    TeamDao teamDao;
 
-    public ClassroomViewController(ClassroomDao classroomDao) {
-        this.classroomDao = classroomDao;
+    public TeamViewController(TeamDao teamDao) {
+        this.teamDao = teamDao;
     }
 
+    @RequestMapping
     public String view(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        int no = Integer.parseInt(request.getParameter("no"));
-        Classroom classroom = classroomDao.selectOne(no);
+        String name = request.getParameter("name");
 
-        if (classroom == null) {
-            throw new Exception("유효하지 않은 강의입니다.");
+        Team team = teamDao.selectOneWithMembers(name);
+        if (team == null) {
+            throw new Exception("유효하지 않은 팀입니다.");
         }
-        request.setAttribute("classroom", classroom);
-        return "/classroom/view.jsp";
+        request.setAttribute("team", team);
+
+        return "/team/view.jsp";
     }
 }
 
 // ver 42 - JSP 적용
+// ver 40 - CharacterEncodingFilter 필터 적용.
+// request.setCharacterEncoding("UTF-8") 제거
 // ver 39 - forward 적용
 // ver 37 - 컨트롤러를 서블릿으로 변경
 // ver 31 - JDBC API가 적용된 DAO 사용

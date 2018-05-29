@@ -17,9 +17,10 @@
     </bean>
     
     <bean id="sqlSessionFactoryBuilder"
-          class="org.apache.ibatis.session.SqlSessionFactory"/>
+          class="org.apache.ibatis.session.SqlSessionFactoryBuilder"/>
           
      <bean id="sqlSessionFactory"
+     
           factory-bean="sqlSessionFactoryBuilder"
           factory-method="build">
         <constructor-arg ref="mybatisConfigInputStream"/>
