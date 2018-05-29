@@ -1,17 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" 
+    contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    isErrorPage="true"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset='UTF-8'>
 <meta http-equiv='Refresh' 
-    content='5;url=<%=request.getHeader("Referer")%>'>
+      content='5;url=<%=request.getHeader("Referer")%>'>
 <title>실행 오류</title>
 </head>
 <body>
-<h1><%=request.getAttribute("title") %>(MVC)</h1>
+<h1>실행 오류!</h1>
 <pre>
-<%=request.getAttribute("error") %>
+<%=exception%>
 </pre>
 </body>
 </html>

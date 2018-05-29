@@ -53,17 +53,16 @@ public class BoardAddServlet extends HttpServlet {
             board.setContent(request.getParameter("content"));
 
             boardDao.insert(board);
-            response.sendRedirect("list");
+            request.setAttribute("viewUrl", "redirect:list.do");
             
         } catch (Exception e) {
-            request.setAttribute("error", e);
-            request.setAttribute("title", "게시물 등록 실패!");
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
+            throw new ServletException(e);
         }
     }
 
 }
 
+//ver 42 - JSP 적용
 //ver 40 - 필터 적용
 //ver 39 - forward 적용
 //ver 38 - redirect 적용

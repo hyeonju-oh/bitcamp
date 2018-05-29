@@ -35,24 +35,22 @@ public class BoardListServlet extends HttpServlet {
             HttpServletResponse response) throws ServletException, IOException {
         
         try {
+            // JSP에서 출력할 게시물 목록을 가져온다.
             List<Board> list = boardDao.selectList();
             
             // JSP가 게시물 목록을 사용할 수 있도록 ServletRequest 보관소에 저장한다.
             request.setAttribute("list", list);
             
-            // include 한다면, 이 서블릿에서 콘텐트 타입을 지정해야 한다.
-            response.setContentType("text/html;charset=UTF-8");
+            // 프론트 컨트롤러에게 전달할 JSP URL을 설정한다.
+            request.setAttribute("viewUrl", "/board/list.jsp");
             
-            // JSP를 실행한다. 실행 완료 후 이 서블릿으로 되돌아 온다.
-            request.getRequestDispatcher("/board/list.jsp").include(request, response);
         } catch (Exception e) {
-            request.setAttribute("error", e);
-            request.setAttribute("title", "게시물 목록조회 실패!");
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
+            throw new ServletException(e);
         }
     }
 }
 
+//ver 42 - JSP 적용
 //ver 39 - forward 적용
 //ver 37 - BoardListController를 서블릿으로 변경
 //ver 31 - JDBC API가 적용된 DAO 사용

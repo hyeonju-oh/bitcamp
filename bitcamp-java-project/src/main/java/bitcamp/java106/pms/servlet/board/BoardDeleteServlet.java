@@ -38,17 +38,16 @@ public class BoardDeleteServlet extends HttpServlet {
             if (count == 0) {
                 throw new Exception("해당 게시물이 없습니다.");
             }
-            response.sendRedirect("list");
+            request.setAttribute("viewUrl", "redirect:list.do");
             
         } catch (Exception e) {
-            request.setAttribute("error", e);
-            request.setAttribute("title", "게시물 삭제 실패!");
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
+            throw new ServletException(e);
         }
     }
     
 }
 
+//ver 42 - JSP 적용
 //ver 39 - forward 적용
 //ver 38 - redirect 적용
 //ver 37 - BoardDeleteController를 서블릿으로 변경
