@@ -1,13 +1,10 @@
 package bitcamp.java106.pms.web;
 
 import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.stereotype.Component;
 
 import bitcamp.java106.pms.dao.MemberDao;
 import bitcamp.java106.pms.dao.TeamDao;
@@ -15,8 +12,7 @@ import bitcamp.java106.pms.dao.TeamMemberDao;
 import bitcamp.java106.pms.domain.Member;
 import bitcamp.java106.pms.domain.Team;
 
-@Controller
-@RequestMapping("/team/member")
+@Component("/team/member")
 public class TeamMemberController {
     
     TeamDao teamDao;
@@ -34,8 +30,7 @@ public class TeamMemberController {
     @RequestMapping("/add")
     public String add(
             @RequestParam("teamName") String teamName,
-            @RequestParam("memberId") String memberId,
-            Map<String,Object> map) throws Exception {
+            @RequestParam("memberId") String memberId) throws Exception {
         
         Team team = teamDao.selectOne(teamName);
         if (team == null) {
@@ -43,19 +38,12 @@ public class TeamMemberController {
         }
         Member member = memberDao.selectOne(memberId);
         if (member == null) {
-            map.put("message", "해당 회원이 없습니다!");
-            return "/teammember/fail.jsp";
+            throw new Exception(memberId + " 회원은 없습니다.");
         }
-        
-        HashMap<String,Object> params = new HashMap<>();
-        params.put("teamName", teamName);
-        params.put("memberId", memberId);
-        
-        if (teamMemberDao.isExist(params)) {
-            map.put("message", "이미 등록된 회원입니다.");
-            return "/teammember/fail.jsp";
+        if (teamMemberDao.isExist(teamName, memberId)) {
+            throw new Exception("이미 등록된 회원입니다.");
         }
-        teamMemberDao.insert(params);
+        teamMemberDao.insert(teamName, memberId);
         return "redirect:../view.do?name=" + 
                 URLEncoder.encode(teamName, "UTF-8");
     }
@@ -63,17 +51,11 @@ public class TeamMemberController {
     @RequestMapping("/delete")
     public String delete(
             @RequestParam("teamName") String teamName,
-            @RequestParam("memberId") String memberId,
-            Map<String,Object> map) throws Exception {
+            @RequestParam("memberId") String memberId) throws Exception {
          
-        HashMap<String,Object> params = new HashMap<>();
-        params.put("teamName", teamName);
-        params.put("memberId", memberId);
-        
-        int count = teamMemberDao.delete(params);
+        int count = teamMemberDao.delete(teamName, memberId);
         if (count == 0) {
-            map.put("message", "해당 회원이 없습니다!");
-            return "/teammember/fail.jsp";
+            throw new Exception("<p>해당 팀원이 존재하지 않습니다.</p>");
         }
         return "redirect:../view.do?name=" + 
                 URLEncoder.encode(teamName, "UTF-8");
@@ -92,7 +74,6 @@ public class TeamMemberController {
     }
 }
 
-//ver 50 - DAO 변경에 맞춰 메서드 호출 변경
 //ver 49 - 요청 핸들러의 파라미터 값 자동으로 주입받기
 //ver 48 - CRUD 기능을 한 클래스에 합치기
 //ver 47 - 애노테이션을 적용하여 요청 핸들러 다루기

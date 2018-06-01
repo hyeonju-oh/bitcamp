@@ -3,15 +3,12 @@ package bitcamp.java106.pms.web;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.stereotype.Component;
 
 import bitcamp.java106.pms.dao.BoardDao;
 import bitcamp.java106.pms.domain.Board;
 
-@Controller
-@RequestMapping("/board")
+@Component("/board")
 public class BoardController {
     
     BoardDao boardDao;
@@ -22,7 +19,7 @@ public class BoardController {
     
     @RequestMapping("/add")
     public String add(Board board) throws Exception {
-    
+        
         boardDao.insert(board);
         return "redirect:list.do";
     }
@@ -38,27 +35,26 @@ public class BoardController {
     }
     
     @RequestMapping("/list")
-    public String list(Map<String,Object> map) throws Exception {
-        
+    public String list(Map<String,Object> map) throws Exception {        
+            
         List<Board> list = boardDao.selectList();
         map.put("list", list);
-        
         return "/board/list.jsp";
     }
     
     @RequestMapping("/update")
     public String update(Board board) throws Exception {
-    
+        
         int count = boardDao.update(board);
         if (count == 0) {
             throw new Exception("해당 게시물이 존재하지 않습니다.");
         } 
         return "redirect:list.do";
     }
-
+    
     @RequestMapping("/view")
     public String view(
-            @RequestParam("no") int no,
+            @RequestParam("no") int no, 
             Map<String,Object> map) throws Exception {
         
         Board board = boardDao.selectOne(no);
@@ -67,10 +63,15 @@ public class BoardController {
         }
         map.put("board", board);
         return "/board/view.jsp";
-            
     }
+
 }
 
+//ver 49 - 요청 핸들러의 파라미터 값 자동으로 주입받기
+//ver 48 - CRUD 기능을 한 클래스에 합치기
+//ver 47 - 애노테이션을 적용하여 요청 핸들러 다루기
+//ver 46 - 페이지 컨트롤러를 POJO를 변경
+//ver 45 - 프론트 컨트롤러 적용
 //ver 42 - JSP 적용
 //ver 40 - 필터 적용
 //ver 39 - forward 적용
