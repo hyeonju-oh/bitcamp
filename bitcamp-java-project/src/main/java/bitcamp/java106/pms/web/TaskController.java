@@ -1,10 +1,13 @@
 package bitcamp.java106.pms.web;
 
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import bitcamp.java106.pms.dao.TaskDao;
 import bitcamp.java106.pms.dao.TeamDao;
@@ -13,7 +16,8 @@ import bitcamp.java106.pms.domain.Member;
 import bitcamp.java106.pms.domain.Task;
 import bitcamp.java106.pms.domain.Team;
 
-@Component("/task")
+@Controller
+@RequestMapping("/task")
 public class TaskController {
     
     TeamDao teamDao;
@@ -42,9 +46,12 @@ public class TaskController {
             throw new Exception(task.getTeam().getName() + " 팀은 존재하지 않습니다.");
         }
         
+        HashMap<String,Object> params = new HashMap<>();
+        params.put("teamName", task.getTeam().getName());
+        params.put("memberId", task.getWorker().getId());
+        
         if (task.getWorker().getId().length() > 0 &&
-            !teamMemberDao.isExist(
-                task.getTeam().getName(), task.getWorker().getId())) {
+            !teamMemberDao.isExist(params)) {
             throw new Exception(task.getWorker().getId() + "는 이 팀의 회원이 아닙니다.");
         }
         
@@ -134,8 +141,22 @@ public class TaskController {
         map.put("members", members);
         return "/task/view.jsp";
     }
+    
+    //GlobalBindingInitializer 에 등록했기 때문에 이 클래스에서는 제외한다.
+    /*@InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(
+                java.sql.Date.class, 
+                new PropertyEditorSupport() {
+                    @Override
+                    public void setAsText(String text) throws IllegalArgumentException {
+                        this.setValue(java.sql.Date.valueOf(text));
+                    }
+                });
+    }*/
 }
 
+//ver 51 - Spring WebMVC 적용
 //ver 49 - 요청 핸들러의 파라미터 값 자동으로 주입받기
 //ver 48 - CRUD 기능을 한 클래스에 합치기
 //ver 47 - 애노테이션을 적용하여 요청 핸들러 다루기
