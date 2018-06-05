@@ -31,6 +31,11 @@ public class TeamMemberController {
         this.teamMemberDao = teamMemberDao;
     }
     
+    @RequestMapping("/form")
+    public void form() {
+        
+    }
+    
     @RequestMapping("/add")
     public String add(
             @RequestParam("teamName") String teamName,
@@ -82,13 +87,12 @@ public class TeamMemberController {
     }
     
     @RequestMapping("/list")
-    public String list(
+    public void list(
             @RequestParam("name") String teamName,
             Map<String,Object> map) throws Exception {
        
         List<Member> members = teamMemberDao.selectListWithEmail(teamName);
         map.put("members", members);
-        return "/team/member/list.jsp";
     }
 }
 
