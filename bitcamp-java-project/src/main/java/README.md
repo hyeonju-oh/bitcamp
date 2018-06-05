@@ -5,4 +5,5 @@
 - web.xml 변경
 - RequestMapping, RequestParam 애노테이션 삭제. Spring WebMVC의 애노테이션 적용.
 - 페이지 컨트롤러 변경.
+- GlobalBindingInitializer 추가
 

@@ -86,8 +86,9 @@ public class TeamController {
         return "/team/view.jsp";
     }
     
-    //GlobalBindingInitializer 에 등록했기 때문에 이 클래스에서는 제외한다.
-    /*@InitBinder
+    // GlobalBindingInitializer 에 등록했기 때문에 이 클래스에서는 제외한다.
+    /*
+    @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(
                 java.sql.Date.class, 
@@ -97,8 +98,8 @@ public class TeamController {
                         this.setValue(java.sql.Date.valueOf(text));
                     }
                 });
-    }*/
-    
+    }
+    */
 }
 
 //ver 51 - Spring WebMVC 적용
