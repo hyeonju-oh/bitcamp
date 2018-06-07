@@ -10,7 +10,7 @@
 </head>
 <body>
 <jsp:include page="../header.jsp"/>
-<h1>강의 목록(MVC + JSP 전용 태그 + EL + JSTL)</h1>
+<h1>강의 목록</h1>
 <p><a href='form'>새 강의</a></p>
 <table border='1'>
 <tr>
@@ -19,7 +19,7 @@
 <c:forEach items="${list}" var="classroom">
 <tr>
     <td>${classroom.no}</td>
-    <td><a href='view/${classroom.no}'>${classroom.title}</a></td>
+    <td><a href='${classroom.no}'>${classroom.title}</a></td>
     <td>${classroom.startDate}~${classroom.endDate}</td>
     <td>${classroom.room}</td>
 </tr>
