@@ -7,8 +7,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import bitcamp.java106.pms.dao.TaskDao;
-import bitcamp.java106.pms.dao.TeamDao;
-import bitcamp.java106.pms.dao.TeamMemberDao;
 import bitcamp.java106.pms.domain.Task;
 import bitcamp.java106.pms.service.TaskService;
 
