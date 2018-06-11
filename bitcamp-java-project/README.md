@@ -1,6 +1,21 @@
 # 자바 프로젝트
 
-## src51 - Spring WebMVC 적용
+## src52 - Spring WebMVC 기타 설정
+학습목표
+    - view resolver의 역할을 이해하고 설정할 수 있다.
+    - Path Variable을 사용할 수 있다.
+    - Matrix Variable을 사용할 수 있다.
+    - 목록의 페이징을 다룰 수 있다.
+    - Interceptor를 다룰 수 있다. 
+작업내용
+    - 프론트 컨트롤러의 스프링 설정에 뷰 리졸버 설정을 추가한다.
+    - 프론트 컨트롤러의 URL 맵핑을 *.do 에서 /app/* 으로 변경한다.
+    - Path Variable을 처리할 객체를 등록한다.
+    - 페이지 파라미터에 Matrix Variable을 적용한다.
+    - 목록 데이터를 페이지 단위로 가져온다.
+    - 인터셉터를 사용하여 로그인 여부를 검사한다.
+    
+## src51 - Spring WebMVC 기본 적용
 학습목표
     - Spring WebMVC를 사용하여 웹 애플리케이션을 만들 수 있다.
     - Spring WebMVC의 구동 원리를 이해한다.
@@ -8,6 +23,13 @@
     - 기존에 작성했던 프론트 컨트롤러인 DispatcherServlet을 Spring WebMVC 클래스로 대체한다.
     - 기존에 작성했던 필터인 CharacterEncodingFilter를 Spring WebMVC 클래스로 대체한다.
     - @RequestParam, @RequestMapping 애노테이션을 Spring WebMVC 애노테이션으로 대체한다.
+    - 문자열 파라미터 값을 java.sql.Date 객체로 변환시키는 커스텀 프로퍼티 에디터를 등록한다.
+학습목표
+    - 스프링 WebMVC의 프론트 컨트롤러를 프로젝트에 적용할 수 있다.
+    - 스프링 WebMVC의 규칙에 따라 페이지 컨트롤러를 만들 수 있다.
+    - @InitBinder 애노테이션을 사용할 수 있다.
+    - 커스텀 프로퍼티 에디터를 사용하여 클라이언트 파라미터 값을 요청 핸들러의 파라미터 값으로 변환할 수 있다.
+    - @ControllerAdvice 애노테이션을 사용할 수 있다.
 
 ## src50 - mybatis와 Spring IoC 컨테이너 연동하기
 학습목표 

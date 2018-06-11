@@ -12,6 +12,7 @@ public interface MemberDao {
     int update(Member member);
     Member selectOne(String id);
     Member selectOneWithPassword(Map<String,Object> params);
+    int count(Map<String,Object> params); 
 }
 
 //ver 50 - 클래스를 인터페이스로 변경
