@@ -15,13 +15,9 @@ import bitcamp.java106.pms.service.TaskService;
 @Service
 public class TaskServiceImpl implements TaskService {
     
-    TeamDao teamDao;
-    TeamMemberDao teamMemberDao;
     TaskDao taskDao;
     
-    public TaskServiceImpl(TeamDao teamDao, TeamMemberDao teamMemberDao, TaskDao taskDao) {
-        this.teamDao = teamDao;
-        this.teamMemberDao = teamMemberDao;
+    public TaskServiceImpl(TaskDao taskDao) {
         this.taskDao = taskDao;
     }
     
