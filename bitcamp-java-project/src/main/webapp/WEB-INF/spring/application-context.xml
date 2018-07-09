@@ -37,12 +37,12 @@
     </bean>
     
     <context:property-placeholder 
-        location="classpath:bitcamp/java106/pms/sql/jdbc.properties"/> 
+        location="classpath:jdbc.properties,
+                  classpath:aws.properties"/> 
         
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="bitcamp.java106.pms.dao" />
     </bean>
-    
     
     <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
@@ -56,13 +56,6 @@
     </tx:advice>
     <aop:config>
         <aop:advisor advice-ref="txAdvice" 
-            pointcut="execution(* bitcamp.java106.pms.service.impl.*.*(..))"/>
-    </aop:config>
-    
+                     pointcut="execution(* bitcamp.java106.pms.service.impl.*.*(..))"/>
+    </aop:config>     
 </beans>
-
-
-
-
-
-
