@@ -75,11 +75,11 @@
     where name=#{value}
   </delete>
   
-  <update id="updateState" parameterType="map">
+<!--   <update id="updateState" parameterType="map">
     update pms2_team set 
       stat=#{state} 
     where tano=#{no}
-  </update>
+  </update> -->
 </mapper>
 
 
